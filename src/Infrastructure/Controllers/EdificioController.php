@@ -4,6 +4,7 @@ require_once __DIR__ . '/../Persistence/MySQLEdificioRepository.php';
 require_once __DIR__ . '/../../Application/UseCase/CrearEdificio.php';
 require_once __DIR__ . '/../../Application/UseCase/ListarEdificios.php';
 require_once __DIR__ . '/../../Application/UseCase/EliminarEdificio.php';
+require_once __DIR__ . '/../../Application/UseCase/ActualizarEdificio.php';
 
 class EdificioController {
 
@@ -35,4 +36,42 @@ class EdificioController {
     $casoUso->ejecutar($_GET['id']);
 
     header("Location: index.php?accion=listar");
+}
+public function editar(){
+
+    $repo = new MySQLEdificioRepository();
+
+    $edificio = $repo->buscarPorId($_GET['id']);
+
+    require __DIR__ . '/../../Interfaces/Web/editar_edificio.php';
+}
+public function actualizar(){
+
+    $repo = new MySQLEdificioRepository();
+    $casoUso = new ActualizarEdificio($repo);
+
+    $casoUso->ejecutar($_POST);
+
+    header("Location: index.php?accion=listar");
+}
+public function login(){
+
+    $conexion = Database::conectar();
+
+    $stmt = $conexion->prepare("SELECT * FROM usuarios WHERE nombre=?");
+    $stmt->execute([$_POST['nombre']]);
+
+    $usuario = $stmt->fetch();
+
+    if($usuario && password_verify($_POST['clave'], $usuario['clave'])){
+        
+        session_start();
+        $_SESSION['usuario'] = $usuario;
+
+        header("Location: index.php?accion=listar");
+
+    } else {
+        echo "Credenciales incorrectas";
+    }
+}
 }

@@ -25,7 +25,9 @@
         <td><?= $e['ciudad'] ?></td>
         <td><?= $e['numPisos'] ?></td>
         <td>
-            <a href="index.php?accion=eliminar&id=<?= $e['id'] ?>">Eliminar</a>
+                <a href="index.php?accion=editar&id=<?= $e['id'] ?>">Editar</a> |
+                <a href="index.php?accion=eliminar&id=<?= $e['id'] ?>">Eliminar</a>
+
         </td>
     </tr>
     <?php endforeach; ?>

@@ -47,10 +47,38 @@ class MySQLEdificioRepository implements EdificioRepository {
     }
 
     public function actualizar(Edificio $e){
-        // lo haremos después
+
+        $sql = "UPDATE edificios SET 
+        nombre=?, metrosCuadrados=?, altura=?, numPisos=?, numApartamentos=?, 
+        numOficinas=?, nombreParqueadero=?, numPiscinas=?, pais=?, 
+        departamento=?, ciudad=?, tieneAscensor=?, valorAdministracion=?, 
+        tieneZonaSocial=?
+        WHERE id=?";
+
+        $stmt = $this->conexion->prepare($sql);
+        $stmt->execute([
+            $e->getNombre(),
+            $e->getMetrosCuadrados(),
+            $e->getAltura(),
+            $e->getNumPisos(),
+            $e->getNumApartamentos(),
+            $e->getNumOficinas(),
+            $e->getNombreParqueadero(),
+            $e->getNumPiscinas(),
+            $e->getPais(),
+            $e->getDepartamento(),
+            $e->getCiudad(),
+            $e->getTieneAscensor(),
+            $e->getValorAdministracion(),
+            $e->getTieneZonaSocial(),
+            $e->getId()
+        ]);
     }
 
     public function buscarPorId($id){
-        // lo haremos después
+        $stmt = $this->conexion->prepare("SELECT * FROM edificios WHERE id=?");
+        $stmt->execute([$id]);
+        return $stmt->fetch();
     }
+
 }
