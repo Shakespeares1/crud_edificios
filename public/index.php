@@ -9,3 +9,11 @@ $controller = new EdificioController();
 if($accion == 'guardar'){
     $controller->guardar();
 }
+
+if($accion == 'listar'){
+    $controller->listar();
+}
+
+if($accion == 'eliminar'){
+    $controller->eliminar();
+}
