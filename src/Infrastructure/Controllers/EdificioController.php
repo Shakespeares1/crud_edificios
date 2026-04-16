@@ -74,4 +74,20 @@ public function login(){
         echo "Credenciales incorrectas";
     }
 }
+public function cambiarPassword(){
+
+    session_start();
+
+    $conexion = Database::conectar();
+
+    $hash = password_hash($_POST['nueva_clave'], PASSWORD_BCRYPT);
+
+    $stmt = $conexion->prepare("UPDATE usuarios SET clave=? WHERE id=?");
+    $stmt->execute([
+        $hash,
+        $_SESSION['usuario']['id']
+    ]);
+
+    echo "Contraseña actualizada correctamente 🔥";
+}
 }

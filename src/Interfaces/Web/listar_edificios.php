@@ -7,6 +7,8 @@
 
 <h2>Lista de Edificios</h2>
 
+<a href="/public/cambiar_password.php">Cambiar contraseña</a>
+
 <a href="form.html">Crear nuevo</a>
 
 <table border="1">

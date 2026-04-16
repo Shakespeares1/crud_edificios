@@ -32,3 +32,6 @@ if($accion == 'actualizar'){
 if($accion == 'login'){
     $controller->login();
 }
+if($accion == 'cambiar_password'){
+    $controller->cambiarPassword();
+}
